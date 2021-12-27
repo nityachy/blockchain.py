@@ -33,9 +33,9 @@ def create_genesis_block():
 def next_block(last_block):
     this_index = last_block.index + 1
     this_timestamp = date.datetime.now()
-    this_data = "This is a Block" + str(this_index)
+    this_data = "This is a Block " + str(this_index)
     this_hash = last_block.hash
-    return Block(this_index, this_timestamp, this_data, this_hash)    
+    return Block(this_index, this_timestamp, this_data, last_block, this_hash)    
 
 #function will take previous block in chain as parameter
 
@@ -51,7 +51,7 @@ num_of_blocks_to_add = 30
 for i in range(0, num_of_blocks_to_add):
     block_to_add = next_block(previous_block)
     blockchain.append(block_to_add)
-    previous_block = block_to_add
+    previous_block = blockchain[len(blockchain) - 1]
 
     print "Block #{} has been added to this blockchain".format(block_to_add.index)
     print "Hash: {}\n".format(block_to_add.hash)
